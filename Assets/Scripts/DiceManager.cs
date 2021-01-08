@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class DiceManager : MonoBehaviour
 {
+    public _GameManager GM;
     public GameObject dice;
     public GameObject diceBG;
     public GameObject highlight;
     public GameObject[] diceRollValue;
 
     private bool _selected = false;
+    private GameObject currentSide;
     public bool _currentlyDisplayed = false;
     public int diceValue;
     // Start is called before the first frame update
@@ -40,8 +42,8 @@ public class DiceManager : MonoBehaviour
     /// <param name="index">Index.</param>
     void ActivateDiceSide(int index)
     {
-        GameObject selectedSide = diceRollValue[index - 1];
-        _ActivateDiceSide(selectedSide, true);
+        currentSide = diceRollValue[index - 1];
+        _ActivateDiceSide(currentSide, true);
     }
 
     /// <summary>
@@ -51,7 +53,6 @@ public class DiceManager : MonoBehaviour
     /// <param name="value">If set to <c>true</c> value.</param>
     void _ActivateDiceSide(GameObject side, bool value)
     {
-        Debug.Log("side");
         side.SetActive(value);
     }
 
@@ -67,8 +68,15 @@ public class DiceManager : MonoBehaviour
     void DiceClicked()
     {
         _selected = !_selected;
+        GM.DiceClicked(_selected);
         ManageHighlight(_selected);
-        //do stuff in the game manger here
+
+    }
+
+    public void DeselectDice()
+    {
+        _selected = false;
+        ManageHighlight(_selected);
     }
 
     /// <summary>
@@ -81,7 +89,7 @@ public class DiceManager : MonoBehaviour
 
     public void ActivateDiceVisual(bool value)
     {
-        dice.SetActive(value);
+        ActivateDiceObject(value);
         _currentlyDisplayed = true;
         if(value)
         {
@@ -89,4 +97,24 @@ public class DiceManager : MonoBehaviour
             ActivateDiceSide(diceValue);
         }
     }
+
+    public void ActivateDiceObject(bool value)
+    {
+        dice.SetActive(value);
+    }
+
+    public void ResetActiveDice()
+    {
+        _ActivateDiceSide(currentSide, false);
+        _selected = false;
+        _currentlyDisplayed = false;
+        ActivateDiceObject(false);
+    }
+
+    public bool Selected
+    {
+        get { return _selected; }
+    }
+
+
 }

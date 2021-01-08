@@ -766,7 +766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &813855563504488411
 Transform:
   m_ObjectHideFlags: 0
@@ -873,6 +873,7 @@ MonoBehaviour:
   - {fileID: 813855562899750395}
   - {fileID: 813855562779586523}
   _currentlyDisplayed: 0
+  diceValue: 0
 --- !u!61 &813855563570864179
 BoxCollider2D:
   m_ObjectHideFlags: 0
